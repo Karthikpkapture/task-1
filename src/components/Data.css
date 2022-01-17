@@ -1,0 +1,32 @@
+
+
+.components
+{
+    width: 50%;
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flexbox-wrap {
+    display: flex;
+
+}
+
+
+.flex-item
+{
+    
+}
+
+.flex-contain-1 {
+    flex: 1;
+}
+
+.flex-contain-2 {
+   
+    flex: 16;
+
+}
+

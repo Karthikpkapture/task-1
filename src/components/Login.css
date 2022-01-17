@@ -1,0 +1,36 @@
+
+
+.container
+{
+    width:100% ;
+    margin: auto;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+
+
+.flex-item
+{
+    
+}
+
+.flex-item-1 {
+    flex: 3.5;
+    height: 100vh;
+    background-color: #015C8D;
+}
+
+.flex-item-2 {
+    flex: 1;
+
+}
+
+.login-wrapper
+{
+    width: 100%;
+    margin:auto;
+}
