@@ -18,6 +18,9 @@ import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 
@@ -25,6 +28,7 @@ function Data() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [users, setUsers] = React.useState([]);
+    const [selectuser, setSelect] = React.useState([]);
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -71,10 +75,15 @@ function Data() {
             const request =await axios.get(`https://reqres.in/api/users?page=2`)
                 // console.log(request.data.data);
                 setUsers(request.data.data);
+                setSelect([
+                  { label: request.data.data[0]['first_name']},
+                  
+                ])
                  
         }
         user();
         console.log(users);
+        console.log(selectuser);
     }, []); 
 
       
@@ -85,10 +94,21 @@ function Data() {
             <SideBar />
           </div>
           {/* Flex  */}
-          <div className='flex-contain-2'>
-            <Tooltip title="Sample Data Table which used to monitor the users" placement="top"  >
+          <div className='flex-contain-2 static' >
+              <Tooltip title="Sample Data Table which used to monitor the users" placement="top"  >
                   <h1 className="text-3xl font-bold m-4 text-center" >Customers</h1>
               </Tooltip>
+              <div className='absolute top-2 right-44'>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  className='h-14' 
+                  options={selectuser}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Select User" />}
+                />
+              </div>
+             
               <div style={{ height: 600, width: '80%', alignItems:'center', justifyContent:'center', margin:'auto' }}>
               
                 <DataGrid
