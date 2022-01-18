@@ -21,6 +21,11 @@ import axios from 'axios';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useDispatch } from "react-redux";
+import { selectUser } from "../redux/AlluserSlice";
+import { selectNotification } from '../redux/notificationSlice';
+import { selectAllusers } from '../redux/AlluserSlice'
+import { useSelector } from 'react-redux';
 
 
 
@@ -29,7 +34,8 @@ function Data() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [users, setUsers] = React.useState([]);
     const [selectuser, setSelect] = React.useState([]);
-
+    
+    const dispatch = useDispatch();
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -68,23 +74,38 @@ function Data() {
             }`,
         },
       ];
+
+      var officers = [
+        { label: 'Captain Piett' },
+        { label: 'General Veers' },
+        { label: 'Admiral Ozzel' },
+        { label: 'Commander Jerjerrod' }
+      ];
+
+      const clickfunction = () => {
+        
+        console.log(selectAllusers);
+        alert("success")
+      }
       
       useEffect(() => {
-
         async function user(){
             const request =await axios.get(`https://reqres.in/api/users?page=2`)
-                // console.log(request.data.data);
-                setUsers(request.data.data);
-                setSelect([
-                  { label: request.data.data[0]['first_name']},
-                  
-                ])
-                 
+                setUsers(request.data.data); 
+                var userdata = request.data.data;
+                console.log(userdata);
+                dispatch(selectUser({
+                  userdata
+                }));
         }
         user();
-        console.log(users);
+        const user_labels = users.map(officer => officer.first_name);
+        setSelect([
+          { label: user_labels},
+        ])      
         console.log(selectuser);
-    }, []); 
+
+    }, []);
 
       
     return (
@@ -139,7 +160,9 @@ function Data() {
                 
               </div>
               <div className='components'>
-
+                  <Button variant="contained" onClick={clickfunction} className='w-full'>
+                          Click me
+                  </Button>
               </div>
           </div>
             
